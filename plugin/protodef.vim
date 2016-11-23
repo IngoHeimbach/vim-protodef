@@ -1,7 +1,7 @@
 " ============================================================================
 " File:        protodef.vim
 "
-" Description: Vim global plugin that updates a CPP implementation file with 
+" Description: Vim global plugin that updates a CPP implementation file with
 "              concrete definitions of prototypes declared in a header file.
 "
 " Maintainer:  Derek Wyatt <derek at myfirstnamemylastname dot org>
@@ -49,7 +49,7 @@ endif
 " set of hints for return values.  Chances are it will never actually be "correct"
 " for a real function - you'll always change the default to something else.
 if !exists('g:protodefvaluedefaults')
-    let g:protodefvaluedefaults = 
+    let g:protodefvaluedefaults =
                 \ {
                 \     'int'                  : '0',
                 \     'unsigned int'         : '0',
@@ -74,7 +74,7 @@ endif
 
 "
 " s:PrototypeSortCompare()
-" 
+"
 " This is a basic stab at trying to order prototypes by putting ctors and
 " dtors first, free functions at the bottom and all of the other stuff
 " in the middle.
@@ -118,7 +118,7 @@ endfunction
 " the header file (as ctags doesn't actually have all the data we need).  The
 " prototypes are then returned in an array in the same format as they appear
 " in the header file.
-" 
+"
 function! s:GetFunctionPrototypesForCurrentBuffer(opts)
     " FSReturnReadableCompanionFilename() is in the fswitch.vim plugin
     let companion = FSReturnReadableCompanionFilename('%')
@@ -255,20 +255,8 @@ function! protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer(opts)
     return join(full, "\n")
 endfunction
 
-"
-" s:MakeMapping()
-"
-" Simply maps the appropriate key to run the
-" ReturnSkeletonsFromPrototypesForCurrentBuffer() function.
-"
-function! protodef#MakeMapping()
-    if !exists('g:disable_protodef_mapping')
-        nmap <buffer> <silent> <leader>PP :set paste<cr>i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[:set nopaste<cr>
-        nmap <buffer> <silent> <leader>PN :set paste<cr>i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({'includeNS' : 0})<cr><esc>='[:set nopaste<cr>
-    endif
-endfunction
 
-augroup protodef_cpp_mapping
-    au! BufEnter *.cpp,*.C,*.cxx,*.cc,*.CC call protodef#MakeMapping()
-augroup END
+" Define protodef commands
 
+command! ProtoDef normal! :set paste<cr>i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[:set nopaste<cr>
+command! ProtoDefWithoutNamespace normal! :set paste<cr>i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({'includeNS' : 0})<cr><esc>='[:set nopaste<cr>

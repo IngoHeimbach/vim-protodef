@@ -31,7 +31,7 @@ Copyright: The VIM LICENSE applies to protodef.vim, and protodef.txt
 							*protodef-about*
 2. About~
 
-ProtoDef is designed to make the "manual" process of copying function 
+ProtoDef is designed to make the "manual" process of copying function
 prototypes from a C++ header file to a C++ implementation file automatic.
 After you've defined the prototype in the header file, you can just hit a key
 and all of the undefined prototypes will be defined for you at the current
@@ -59,18 +59,17 @@ ProtoDef has the following features:
 							*protodef-usage*
 4. Usage~
 
-A mapping is made for you that is local to the buffer in the C++
-implementation file called:
+Commands are defined to generate prototype functions.
 >
-	nmap <buffer> <silent> <leader> ,PP
+	:ProtoDef
 <
-So all you have to do is simply hit {<leader>PP} on a line in the
-implementation file and you will get the definitions put in at that spot.
+Simpy type :ProtoDef on a line in the implementation file and you will
+get the definitions put in at that spot.
 
-Another mapping is included to generate prototypes without the namespace
+Another command is included to generate prototypes without the namespace
 definition as well:
 >
-	nmap <buffer> <silent> <leader> ,PN
+	:ProtoDefWithoutNamespace
 <
 
 ==============================================================================
@@ -131,7 +130,7 @@ In order to get ProtoDef working you'll need to do the following:
 						       *'protodefprotogetter'*
 'protodefprotogetter'   string	(default is $VIM . "/pullproto.pl")
                         global
-	
+
 	This is the location and/or name of the {pullproto.pl} script.  The
 	default location is under the |$VIM| directory.
 
@@ -142,7 +141,7 @@ In order to get ProtoDef working you'll need to do the following:
 	This variable is a dictionary that maps types to default values.
 	You can customize this and if you wish to do so, you should probably
 	just look in the code to see what you should make it look like.
-	
+
 				                  *'disable_protodef_sorting'*
 'disable_protodef_sorting' whatever (default is not defined)
 			   global
@@ -151,14 +150,6 @@ In order to get ProtoDef working you'll need to do the following:
 	implementation file.  If you don't want to do this then set this
 	variable and the order of the functions will be the same as in the
 	header file.
-
-				                  *'disable_protodef_mapping'*
-'disable_protodef_mapping' whatever (default is not defined)
-			   global
-
-	If you want to disable the creation of the the <leader>PP and
-        <leader>PN mappings, just define this - it doesn't matter what you
-	define it to be.
 
 ==============================================================================
    	*protodef-publicfunc* *ReturnSkeletonsFromPrototypesForCurrentBuffer()*
