@@ -228,8 +228,7 @@ function! protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer(opts)
         " Now let's do the check to see if the prototype is already in the buffer
         if search(protosearch, 'nw') == 0 && match(header_contents, protosearch) == -1
             " it's not so start creating the entry
-            call add(full, proto)
-            call add(full, "{")
+            call add(full, proto . " {")
             " Does this prototype have a return type?
             if proto =~ '^\S\+\_s\+.*('
                 " Play a bit of a dodgy game to try and put something
