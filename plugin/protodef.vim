@@ -164,7 +164,7 @@ function! s:GetFunctionPrototypesForCurrentBuffer(opts)
                     let implementation = matchstr(parts[5], 'implementation:\zs.*\ze')
                 endif
             endif
-            if matchstr( origline, "= default;" ) == "" && matchstr( origline, "= delete;" ) == ""
+            if matchstr( origline, "= default;" ) == "" && matchstr( origline, "= delete;" ) == "" && matchstr( origline, "= 0;" ) == ""
                 if implementation !=# 'pure virtual'
                     call add(commands, linenum . '|' . fname . '|' . class)
                 endif
@@ -226,7 +226,7 @@ function! protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer(opts)
         " to kill the VIM regex engine so we'll squeeze these together
         let protosearch = substitute(protosearch, '\%\(\\_s\*\)\+', '\\_s*', 'g')
         " add a trailing { to ensure that it is really a definition and not a declaration
-        let protosearch = protosearch . '\_s*{'
+        let protosearch = protosearch . '\([^}]*\_s*\)*{'
         " Now let's do the check to see if the prototype is already in the buffer
         if search(protosearch, 'nw') == 0 && match(header_contents, protosearch) == -1
             " it's not so start creating the entry

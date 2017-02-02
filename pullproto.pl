@@ -9,7 +9,7 @@ usage: pullproto.pl <filename>
 
   filename  The (header) file from which to pull the prototype
 
-  STDIN should have a list of directives that define what prototypes 
+  STDIN should have a list of directives that define what prototypes
   to pull from <filename>.  The lines should look like this:
 
   <line number>|<function name>|[class]
@@ -94,12 +94,12 @@ while (<STDIN>)
     $justclass = $class if !defined($justclass) || $justclass eq "";
     if ($function eq $justclass || $function eq "~$justclass")
     {
-        ($fname, $post) = $content =~ m/(\Q$function\E$matched?)\s*(\([^\)]*\)[^;]*);/m; # (Matt Spear) added \Q\E and $matched
+        ($fname, $post) = $content =~ m/(\Q$function\E$matched?)\s*(\([^\)]*\))[^;]*;/m; # (Matt Spear) added \Q\E and $matched
     }
     else
     {
         # Paolo Capriotti - Simplify function regexp and fix bug for pointer and reference return types
-        my @a = $content =~ m/((const)?\s*(unsigned)?\s*\S+\s*[\*&]?)(\Q$function\E$matched?)\s*(\([^\)]*\)[^;]*);/m; # (Matt Spear) added \Q\E and $matched
+        my @a = $content =~ m/((const)?\s*(unsigned)?\s*\S+\s*[\*&]?)(\Q$function\E$matched?)\s*(\([^\)]*\))[^;]*;/m; # (Matt Spear) added \Q\E and $matched
         $pre = @a[0];
         $fname = @a[3];
         $post = @a[4];
